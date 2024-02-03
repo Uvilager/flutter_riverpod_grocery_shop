@@ -27,6 +27,12 @@ class GroceriesScreen extends ConsumerWidget {
       ),
       appBar: AppBar(
         title: const Text('Groceries'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.shopping_cart),
+          ),
+        ],
       ),
       body: groceries.when(
         data: (data) => ListView.builder(
@@ -35,7 +41,9 @@ class GroceriesScreen extends ConsumerWidget {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return const GroceryScreen();
+                  return GroceryScreen(
+                    grocery: data[index],
+                  );
                 },
               ));
             },
