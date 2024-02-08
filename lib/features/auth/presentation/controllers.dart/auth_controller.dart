@@ -10,12 +10,25 @@ class AuthController extends _$AuthController {
 
   Future<void> signUp({required String email, required String password}) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => ref
-        .read(authRepositoryProvider)
-        .signUp(email: email, password: password));
+    state = await AsyncValue.guard(
+      () => ref
+          .read(authRepositoryProvider)
+          .signUp(email: email, password: password),
+    );
   }
 
-  Future<void> signIn() async {}
+  Future<void> signIn({required String email, required String password}) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(
+      () => ref
+          .read(authRepositoryProvider)
+          .signIn(email: email, password: password),
+    );
+  }
 
-  Future<void> signOut() async {}
+  Future<void> signOut() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(
+        () => ref.read(authRepositoryProvider).signOut());
+  }
 }

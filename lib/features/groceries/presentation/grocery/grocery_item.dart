@@ -9,6 +9,18 @@ class GroceryWidget extends ConsumerWidget {
   final Grocery grocery;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      cartControllerProvider,
+      (previous, next) {
+        if (next.hasError == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Item added to Cart.'),
+            ),
+          );
+        }
+      },
+    );
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

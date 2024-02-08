@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/controllers.dart/auth_controller.dart';
 
-class SignInWidget extends ConsumerStatefulWidget {
-  const SignInWidget({super.key});
+class SignUpWidget extends ConsumerStatefulWidget {
+  const SignUpWidget({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SignInWidgetState();
+  ConsumerState<SignUpWidget> createState() => _SignUpWidgetState();
 }
 
-class _SignInWidgetState extends ConsumerState<SignInWidget> {
+class _SignUpWidgetState extends ConsumerState<SignUpWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(
+      authControllerProvider,
+      (previous, next) {
+        if (next.hasError == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Logged in successfully'),
+            ),
+          );
+          Navigator.pop(context);
+        }
+      },
+    );
     return Form(
       key: _formKey,
       child: Column(
@@ -56,16 +68,9 @@ class _SignInWidgetState extends ConsumerState<SignInWidget> {
                     password: _passwordController.text);
               }
             },
-            child: const Text('Login'),
+            child: const Text('Register'),
           ),
-          // const SizedBox(height: 16.0),
-          // TextButton(
-          //   onPressed: () {
-          //     context.go('/register');
-          //     print('Sign Up button pressed');
-          //   },
-          //   child: const Text('Not registered? Sign Up'),
-          // ),
+          const SizedBox(height: 16.0),
         ],
       ),
     );

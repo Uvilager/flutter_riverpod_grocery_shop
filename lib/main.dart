@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_grocery_shop/features/auth/data/auth_repository.dart';
-import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/signIn_screen.dart';
+import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/login/signin_screen.dart';
+
 import 'package:flutter_riverpod_grocery_shop/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,10 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      authStateChangesProvider,
+      (previous, next) {},
+    );
     final user = ref.watch(authStateChangesProvider);
     return MaterialApp(
         debugShowCheckedModeBanner: false,

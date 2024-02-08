@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod_grocery_shop/features/cart/presentation/cart_screen.dart';
 import 'package:flutter_riverpod_grocery_shop/features/groceries/data/groceries_repository.dart';
 
 import 'package:flutter_riverpod_grocery_shop/features/groceries/presentation/add/add_groceries_screen.dart';
+import 'package:flutter_riverpod_grocery_shop/features/groceries/presentation/drawer_widget.dart';
 import 'package:flutter_riverpod_grocery_shop/features/groceries/presentation/grocery/grocery_screen.dart';
 
 class GroceriesScreen extends ConsumerWidget {
@@ -13,7 +15,7 @@ class GroceriesScreen extends ConsumerWidget {
     final groceries = ref.watch(groceriesProvider);
 
     return Scaffold(
-      drawer: const Drawer(),
+      drawer: const DrawerWidget(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -29,7 +31,14 @@ class GroceriesScreen extends ConsumerWidget {
         title: const Text('Groceries'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.shopping_cart),
           ),
         ],

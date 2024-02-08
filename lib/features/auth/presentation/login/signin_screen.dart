@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/signin_widget.dart';
+import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/login/signin_widget.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -8,7 +8,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text('Login'),
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
