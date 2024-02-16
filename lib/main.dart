@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_grocery_shop/features/auth/data/auth_repository.dart';
-import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/login/signin_screen.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_grocery_shop/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_riverpod_grocery_shop/utils/theme/theme.dart';
+import 'package:flutter_riverpod_grocery_shop/features/auth/data/auth_repository.dart';
+import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/login/signin_screen.dart';
 import 'package:flutter_riverpod_grocery_shop/features/groceries/presentation/groceries_screen.dart';
 
 void main() async {
+
+  // TODO Sutra / Picture upload na Storage i Reference / Dark/Light mode
   // TODO Eager Initialization
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -32,10 +34,9 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        themeMode: ThemeMode.system,
+        theme: appLightTheme,
+        darkTheme: appDarkTheme,
         home: user.when(
           data: (user) {
             if (user == null) {

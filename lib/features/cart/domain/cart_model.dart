@@ -1,12 +1,18 @@
 import 'package:flutter_riverpod_grocery_shop/features/groceries/domain/grocery_model.dart';
 
 class Cart {
-  Cart({this.items = const {}});
-  Map<Grocery, int> items;
+  const Cart({this.items = const {}});
+  final Map<Grocery, int> items;
 
   Cart addGrocery(Grocery grocery, int quantity) {
     final copy = Map<Grocery, int>.from(items);
     copy.update(grocery, (value) => quantity + value, ifAbsent: () => quantity);
+    return Cart(items: copy);
+  }
+
+  Cart removeGrocery(Grocery grocery) {
+    final copy = Map<Grocery, int>.from(items);
+    copy.remove(grocery);
     return Cart(items: copy);
   }
 
@@ -31,6 +37,7 @@ class Cart {
           'price': grocery.price,
           'category': grocery.category,
           'quantity': quantity,
+          'image': grocery.image,
         };
       }).toList(),
     };

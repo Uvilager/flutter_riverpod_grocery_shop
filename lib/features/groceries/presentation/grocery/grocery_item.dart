@@ -9,9 +9,11 @@ class GroceryWidget extends ConsumerWidget {
   final Grocery grocery;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final quantity = ref.watch(addToCartQuantityControllerProvider);
     ref.listen(
       cartControllerProvider,
       (previous, next) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         if (next.hasError == false) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -26,9 +28,33 @@ class GroceryWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(grocery.name),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.remove),
+                onPressed: () {
+                  ref
+                      .read(addToCartQuantityControllerProvider.notifier)
+                      .decrement();
+                },
+              ),
+              Text(quantity.toString()),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  ref
+                      .read(addToCartQuantityControllerProvider.notifier)
+                      .increment();
+                },
+              ),
+            ],
+          ),
           ElevatedButton(
             onPressed: () {
-              ref.read(cartControllerProvider.notifier).addToCart(grocery);
+              ref
+                  .read(cartControllerProvider.notifier)
+                  .addToCart(grocery, quantity);
             },
             child: const Text('Add to Cart'),
           ),

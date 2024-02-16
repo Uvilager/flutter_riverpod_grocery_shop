@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod_grocery_shop/features/groceries/domain/grocery_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,13 +16,13 @@ class GroceriesRepository {
     required String name,
     required String price,
     required String category,
+    required File image,
   }) async {
-    print('repository called');
-
     await _firestore.collection('groceries').add({
       'name': name,
       'price': price,
       'category': category,
+      'image': image,
     });
   }
 

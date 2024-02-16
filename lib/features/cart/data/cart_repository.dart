@@ -14,17 +14,21 @@ class CartRepository {
   }
 
   Future<Cart> fetchCart(String userId) async {
-    return await _firestore.collection('carts').doc(userId).get().then(
-          (value) => Cart.fromJson(value.data()!),
-        );
+    return await _firestore.collection('carts').doc(userId).get().then((value) {
+      if (!value.exists) {
+        return const Cart();
+      }
+      return Cart.fromJson(value.data()!);
+    });
   }
 
   Stream<Cart> getCart(String userId) {
-    return _firestore
-        .collection('carts')
-        .doc(userId)
-        .snapshots()
-        .map((event) => Cart.fromJson(event.data()!));
+    return _firestore.collection('carts').doc(userId).snapshots().map((event) {
+      if (!event.exists) {
+        return const Cart();
+      }
+      return Cart.fromJson(event.data()!);
+    });
   }
 }
 

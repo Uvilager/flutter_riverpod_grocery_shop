@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod_grocery_shop/features/groceries/data/groceries_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,15 +14,15 @@ class GroceriesController extends _$GroceriesController {
     required String name,
     required String price,
     required String category,
+    required File image,
   }) async {
-    print('controller called');
     state = const AsyncLoading();
     state = await AsyncValue.guard(
         () => ref.read(groceriesRepositoryProvider).addGrocery(
               name: name,
               price: price,
               category: category,
+              image: image,
             ));
-    print(state);
   }
 }
