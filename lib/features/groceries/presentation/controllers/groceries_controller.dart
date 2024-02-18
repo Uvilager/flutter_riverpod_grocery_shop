@@ -18,11 +18,12 @@ class GroceriesController extends _$GroceriesController {
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => ref.read(groceriesRepositoryProvider).addGrocery(
-              name: name,
-              price: price,
-              category: category,
-              image: image,
-            ));
+      () => ref.read(groceriesRepositoryProvider).addGrocery(
+            name: name,
+            price: price,
+            category: category,
+            image: image,
+          ),
+    );
   }
 }

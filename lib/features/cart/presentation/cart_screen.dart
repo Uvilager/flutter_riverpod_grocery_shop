@@ -13,95 +13,118 @@ class CartScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      body: Center(
-        child: cart.when(
-          data: (data) {
-            if (data.items.isEmpty) {
-              return const Text('Cart is empty, add some items');
-            }
-            return ListView.builder(
-              itemCount: data.items.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              child: Row(
+      body: Column(
+        children: [
+          Expanded(
+            child: cart.when(
+              data: (data) {
+                if (data.items.isEmpty) {
+                  return const Text('Cart is empty, add some items');
+                }
+                return ListView.builder(
+                  itemCount: data.items.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.network(
-                                data.items.keys.toList()[index].image,
-                                height: 75,
-                                width: 75,
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
+                              Container(
+                                  child: Row(
                                 children: [
-                                  Text(data.items.keys.toList()[index].name),
-                                  Text(data.items.keys.toList()[index].price +
-                                      '€'),
+                                  Image.network(
+                                    data.items.keys.toList()[index].image,
+                                    height: 75,
+                                    width: 75,
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                          data.items.keys.toList()[index].name),
+                                      Text(data.items.keys
+                                              .toList()[index]
+                                              .price +
+                                          '€'),
+                                    ],
+                                  ),
                                 ],
-                              ),
+                              )),
+                              Row(
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const CircleBorder(),
+                                    ),
+                                    child: const Icon(Icons.remove),
+                                    onPressed: () {
+                                      if (data.items.values.toList()[index] ==
+                                          1) {
+                                        ref
+                                            .read(
+                                                cartControllerProvider.notifier)
+                                            .removeFromCart(
+                                              data.items.keys.toList()[index],
+                                            );
+                                      } else {
+                                        ref
+                                            .read(
+                                                cartControllerProvider.notifier)
+                                            .addToCart(
+                                                data.items.keys.toList()[index],
+                                                -1);
+                                      }
+                                    },
+                                  ),
+                                  Text(data.items.values
+                                      .toList()[index]
+                                      .toString()),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const CircleBorder(),
+                                    ),
+                                    child: const Icon(Icons.add),
+                                    onPressed: () {
+                                      ref
+                                          .read(cartControllerProvider.notifier)
+                                          .addToCart(
+                                              data.items.keys.toList()[index],
+                                              1);
+                                    },
+                                  ),
+                                ],
+                              )
                             ],
-                          )),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(),
-                                ),
-                                child: const Icon(Icons.remove),
-                                onPressed: () {
-                                  if (data.items.values.toList()[index] == 1) {
-                                    ref
-                                        .read(cartControllerProvider.notifier)
-                                        .removeFromCart(
-                                          data.items.keys.toList()[index],
-                                        );
-                                  } else {
-                                    ref
-                                        .read(cartControllerProvider.notifier)
-                                        .addToCart(
-                                            data.items.keys.toList()[index],
-                                            -1);
-                                  }
-                                },
-                              ),
-                              Text(
-                                  data.items.values.toList()[index].toString()),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(),
-                                ),
-                                child: const Icon(Icons.add),
-                                onPressed: () {
-                                  ref
-                                      .read(cartControllerProvider.notifier)
-                                      .addToCart(
-                                          data.items.keys.toList()[index], 1);
-                                },
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const Divider(),
-                  ],
+                          ),
+                        ),
+                        const Divider(),
+                      ],
+                    );
+                  },
                 );
               },
-            );
-          },
-          error: (error, stackTrace) => Text(
-            error.toString(),
+              error: (error, stackTrace) => Text(
+                error.toString(),
+              ),
+              loading: () => const CircularProgressIndicator(),
+            ),
           ),
-          loading: () => const CircularProgressIndicator(),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text('Checkout'),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -34,87 +34,90 @@ class AddGroceriesWidget extends ConsumerWidget {
     late String price;
     late String category;
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the name';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                name = value!;
-              },
-            ),
-            // TODO Image Picker
-            ElevatedButton(
-              onPressed: () async {
-                final picker = ImagePicker();
-                final pickedFile = await picker.pickImage(
-                  source: ImageSource.gallery,
-                );
-                if (pickedFile != null) {
-                  imageFile = File(pickedFile.path);
-                }
-              },
-              child: const Text('Choose Image'),
-            ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Price'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the price';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                price = value!;
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Category'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the category';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                category = value!;
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Center(
-                child: SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        ref
-                            .read(groceriesControllerProvider.notifier)
-                            .addGrocery(
-                              name: name,
-                              price: price,
-                              category: category,
-                              image: imageFile!,
-                            );
-                      }
-                    },
-                    child: const Text('Submit'),
-                  ),
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the name';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    name = value!;
+                  },
                 ),
-              ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Price'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the price';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    price = value!;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Category'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the category';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    category = value!;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                // TODO Image Picker
+                ElevatedButton(
+                  onPressed: () async {
+                    final picker = ImagePicker();
+                    final pickedFile = await picker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+                    if (pickedFile != null) {
+                      imageFile = File(pickedFile.path);
+                    }
+                  },
+                  child: const Text('Choose Image'),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate() && imageFile != null) {
+                  formKey.currentState!.save();
+                  ref.read(groceriesControllerProvider.notifier).addGrocery(
+                        name: name,
+                        price: price,
+                        category: category,
+                        image: imageFile!,
+                      );
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ),
+        ],
       ),
     );
   }

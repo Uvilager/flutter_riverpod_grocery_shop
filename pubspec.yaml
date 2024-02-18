@@ -37,10 +37,11 @@ dependencies:
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
   firebase_core: ^2.25.0
-  cloud_firestore: ^4.15.2
+  cloud_firestore: ^4.15.4
   firebase_auth: ^4.17.3
   flutter_native_splash: ^2.3.10
   image_picker: ^1.0.7
+  firebase_storage: ^11.6.5
 
 dev_dependencies:
   flutter_test:
