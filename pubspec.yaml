@@ -42,6 +42,7 @@ dependencies:
   flutter_native_splash: ^2.3.10
   image_picker: ^1.0.7
   firebase_storage: ^11.6.5
+  flutter_stripe: ^10.0.0
 
 dev_dependencies:
   flutter_test:

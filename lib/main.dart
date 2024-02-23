@@ -9,8 +9,7 @@ import 'package:flutter_riverpod_grocery_shop/features/auth/presentation/login/s
 import 'package:flutter_riverpod_grocery_shop/features/groceries/presentation/groceries_screen.dart';
 
 void main() async {
-
-  // TODO Sutra / Picture upload na Storage i Reference / Dark/Light mode
+  // TODO Stripe Payment/ Dark/Light mode
   // TODO Eager Initialization
   WidgetsFlutterBinding.ensureInitialized();
 
