@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_grocery_shop/features/cart/data/cart_repository.dart';
 import 'package:flutter_riverpod_grocery_shop/features/cart/presentation/controllers/cart_controller.dart';
+import 'package:flutter_riverpod_grocery_shop/features/checkout/presentation/checkout_screen.dart';
 
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});
@@ -119,7 +120,14 @@ class CartScreen extends ConsumerWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CheckoutScreen(),
+                    ),
+                  );
+                },
                 child: const Text('Checkout'),
               ),
             ),
