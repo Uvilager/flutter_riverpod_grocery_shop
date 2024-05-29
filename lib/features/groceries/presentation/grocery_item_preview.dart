@@ -35,10 +35,12 @@ class GroceryItemPreview extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.network(
-                  groceries[index].image,
-                  height: 100,
-                  width: 100,
+                Expanded(
+                  child: Image.network(
+                    groceries[index].image,
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
                 // Image here
                 Text(groceries[index].name),
